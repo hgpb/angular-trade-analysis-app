@@ -1,0 +1,29 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Fetch History</mat-card-title>
+    <mat-card-subtitle></mat-card-subtitle>
+  </mat-card-header>
+  <div class="flex-row" *ngIf="fetchHistory && fetchHistory.length > 0">
+    <mat-card *ngFor="let fetch of fetchHistory">
+      <mat-card-header>
+        <mat-card-title>
+          <span [ngClass]="fetch.isBuyerQtyIsWinner ? 'buy' : 'sell'">{{fetch.symbol}}</span>
+          <span class="limit-text"> limit </span>{{fetch.limit}}
+        </mat-card-title>
+        <mat-card-subtitle matTooltip="Time fetched">
+          {{fetch.timeFetchedFormatted}}
+        </mat-card-subtitle>
+        <mat-card-subtitle matTooltip="Look back">
+          {{fetch.periodFormatted}}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Buyers: {{fetch.buyerQtyTotalFormatted}}</p>
+        <p>Sellers: {{fetch.sellerQtyTotalFormatted}}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <mat-card-content *ngIf="!fetchHistory || fetchHistory.length <= 0">
+    No fetch history found!
+  </mat-card-content>
+</mat-card>

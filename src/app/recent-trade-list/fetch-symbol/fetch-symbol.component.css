@@ -1,0 +1,35 @@
+form {
+  display:flex;
+  flex-direction: column;
+}
+
+mat-card {
+  margin: 1rem;
+}
+input[name="limit"] {
+  border: none;
+  background: none;
+  padding: 0;
+  outline: none;
+  font: inherit;
+  text-align: left;
+  font-family: "Lucida Console", Monaco, monospace;
+}
+
+.flex-row {
+  display: flex;
+}
+.flex-row mat-form-field.symbol {
+  width: 9rem;
+}
+.flex-row mat-form-field.limit {
+  width: 7rem;
+}
+
+button[type="submit"] {
+  margin-top: 1rem;
+}
+
+
+
+

@@ -1,0 +1,24 @@
+mat-card {
+  margin: 1rem;
+}
+
+mat-card-content {
+  margin: 0.5rem;
+  font-size: 1rem;
+}
+.limit-text {
+  font-size: 0.8rem;
+}
+
+.flex-row {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.buy {
+  color: #3BC340;
+}
+
+.sell {
+  color: #F53739;
+}

@@ -1,0 +1,30 @@
+import {
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpErrorResponse
+} from "@angular/common/http";
+import { catchError } from "rxjs/internal/operators";
+import { throwError } from "rxjs/index";
+import { Injectable } from "@angular/core";
+import { MatBottomSheet } from "@angular/material";
+import { ErrorComponent } from "./error/error.component";
+
+@Injectable()
+export class ErrorInterceptor implements HttpInterceptor {
+
+  constructor(public bottomSheet: MatBottomSheet){}
+
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    return next.handle(req).pipe(
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = "An unknown error occured!";
+        if (error.error.msg) {
+          errorMessage = error.error.msg;
+        }
+        this.bottomSheet.open(ErrorComponent, {data: { message: errorMessage}});
+        return throwError(error);
+      })
+    );
+  }
+}

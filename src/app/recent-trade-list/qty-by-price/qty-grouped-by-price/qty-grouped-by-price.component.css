@@ -1,0 +1,15 @@
+mat-paginator {
+  margin-top: 1rem;
+}
+
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+tr.mat-footer-row {
+  font-weight: bold;
+}
