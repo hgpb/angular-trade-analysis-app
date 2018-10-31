@@ -1,8 +1,5 @@
 import { Component, ElementRef, HostBinding, Input, OnDestroy, Optional, Self } from '@angular/core';
-import {
-  AbstractControl, FormBuilder, FormGroup, NgControl, ValidationErrors, ValidatorFn,
-  Validators
-} from "@angular/forms";
+import { FormBuilder, FormGroup, NgControl, Validators } from "@angular/forms";
 import { MatFormFieldControl } from "@angular/material";
 import { Subject } from "rxjs/index";
 import { FocusMonitor } from "@angular/cdk/a11y";
@@ -10,14 +7,6 @@ import { coerceBooleanProperty } from "@angular/cdk/coercion";
 
 export interface AssetSymbol {
   asset1: string, asset2: string
-}
-
-export function SymbolRequiredValidator(): ValidatorFn {
-  return (control: AbstractControl): {[key: string]: any} | null => {
-    const symbol: AssetSymbol = control.value;
-    console.log(symbol);
-    return !control.value.asset1 || !control.value.asset2 ? {'required': {value: "Please enter a valid symbol"}} : null;
-  };
 }
 
 @Component({
