@@ -2,7 +2,10 @@
   <mat-card-header>
     <mat-card-title [ngClass]="isBuyerQtyWinner !== undefined ? (isBuyerQtyWinner ? 'buy' : 'sell') : ''">{{title}}</mat-card-title>
     <mat-card-subtitle>
-      Quantity of <span class="primary">{{symbol}}</span> traded within the last <span class="primary">{{lookBack}}</span>.
+      Quantity of
+      <span class="primary">{{symbol ? symbol : '[ symbol ]'}}</span>
+      traded within last
+      <span class="primary">{{lookBack ? (lookBack | hms) : '[ period ]'}}</span>.
     </mat-card-subtitle>
   </mat-card-header>
   <app-qty-grouped-by-price

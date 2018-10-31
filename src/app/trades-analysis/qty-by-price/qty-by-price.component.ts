@@ -10,9 +10,9 @@ import { QtyByPrice } from "./qty-by-price.model";
 export class QtyByPriceComponent implements OnChanges {
 
   @Input() qtyByPriceCollection: QtyByPrice;
-  title = "";
-  symbol = "[ symbol ]"
-  lookBack: string | number = "[ period ]";
+  title: string;
+  symbol: string;
+  lookBack: number;
   qtyGroupedByPrice: QtyGroupedByPrice[];
   qtyGroupedByPriceTotalFormatted: string;
   costTotalFormatted: string;
