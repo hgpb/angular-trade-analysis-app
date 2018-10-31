@@ -8,7 +8,7 @@
           placeholder="Symbol"
           ngModel
           #symbolInput="ngModel"
-          [(ngModel)]="symbol" required></symbol-input>
+          [(ngModel)]="symbol"></symbol-input>
         <button
           mat-button matSuffix mat-icon-button
           *ngIf="symbol && (symbol.asset1 || symbol.asset2)"

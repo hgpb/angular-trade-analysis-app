@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from "@angular/forms";
+import { NgForm } from "@angular/forms";
 import { RtlService } from "../rtl.service";
 import { Subscription } from "rxjs/index";
-import { AssetSymbol, SymbolRequiredValidator } from "../../customInputs/symbol-input/symbol-input.component";
+import { AssetSymbol } from "../../customInputs/symbol-input/symbol-input.component";
 
 @Component({
   selector: 'app-fetch-symbol',
