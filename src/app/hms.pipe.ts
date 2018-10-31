@@ -1,14 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
 /*
- * Hour Minute Second Pipe
+ * Hours Minutes Seconds Pipe
  * 00h 00m 00s
  *     00m 00s
 */
 @Pipe({name: 'hms'})
 export class HoursMinutesSecondsPipe implements PipeTransform {
-  transform(millisec: number): string {
+  transform(ms: number): string {
+    if (ms === undefined || ms == null) return '';
+    if (ms <= 0) return "00s";
+    if (ms > 86400000) return "> 24h";
     //Get hours from milliseconds
-    const hours = millisec / (1000*60*60);
+    const hours = ms / (1000*60*60);
     const absoluteHours = Math.floor(hours);
     const h = absoluteHours > 9 ? absoluteHours.toString() : '0' + absoluteHours;
     //Get remainder from hours and convert to minutes
