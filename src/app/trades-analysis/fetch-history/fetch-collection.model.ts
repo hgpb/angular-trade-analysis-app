@@ -1,8 +1,9 @@
 export interface FetchCollection {
-  symbol: string,
+  asset1: string,
+  asset2: string,
   limit: number,
-  periodFormatted: string,
-  timeFetchedFormatted: string,
+  lookBack: number,
+  timeFetched: number,
   isBuyerQtyIsWinner: boolean,
   buyerQtyTotalFormatted: string,
   sellerQtyTotalFormatted: string

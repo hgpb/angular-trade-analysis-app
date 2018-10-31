@@ -7,14 +7,14 @@
     <mat-card *ngFor="let fetch of fetchHistory">
       <mat-card-header>
         <mat-card-title>
-          <span [ngClass]="fetch.isBuyerQtyIsWinner ? 'buy' : 'sell'">{{fetch.symbol}}</span>
+          <span [ngClass]="fetch.isBuyerQtyIsWinner ? 'buy' : 'sell'">{{fetch.asset1+'/'+fetch.asset2}}</span>
           <span class="limit-text"> limit </span>{{fetch.limit}}
         </mat-card-title>
         <mat-card-subtitle matTooltip="Time fetched">
-          {{fetch.timeFetchedFormatted}}
+          {{fetch.timeFetched | date:'medium'}}
         </mat-card-subtitle>
         <mat-card-subtitle matTooltip="Look back">
-          {{fetch.periodFormatted}}
+          {{fetch.lookBack | hms}}
         </mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
