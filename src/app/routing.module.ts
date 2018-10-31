@@ -1,7 +1,7 @@
 import { NgModule} from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { RecentTradeListComponent } from "./recent-trade-list/recent-trade-list.component";
+import { RecentTradeListComponent } from "./trades-analysis/trades-analysis.component";
 
 const routes: Routes = [
   { path: "", component: RecentTradeListComponent }
