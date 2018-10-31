@@ -3,7 +3,7 @@ import { QtyGroupedByPrice } from "./qty-grouped-by-price/qty-grouped-by-price.m
 export interface QtyByPrice {
   asset1: string,
   asset2: string,
-  period: string,
+  lookBack: number,
   title: string,
   isBuyerQtyWinner: boolean,
   qtyGroupedByPrice: QtyGroupedByPrice[],
