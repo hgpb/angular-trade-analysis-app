@@ -18,11 +18,11 @@ describe('AggTradesComponent', () => {
 
     fixture = TestBed.createComponent(AggTradesComponent);
     component = fixture.componentInstance;
-    component.tradeInfo = { asset1: "", asset2: "", lookBack: 1, title:"", isBuyerWinner: true, trades: [], totalQty:"", totalCost:"" };
+    component.tradeInfo = { asset1: "", asset2: "", lookBack: 1, isBuyerWinner: true, trades: [], totalQty:"", totalCost:"" };
   });
 
   it('should expect correct title when buyer winning', () => {
-    component.tradeInfo.title = "My Test";
+    component.title = "My Test";
 
     component.ngOnChanges();
     fixture.detectChanges();
@@ -31,7 +31,7 @@ describe('AggTradesComponent', () => {
   });
 
   it('should expect correct title when seller winning', () => {
-    component.tradeInfo.title = "My Test";
+    component.title = "My Test";
     component.tradeInfo.isBuyerWinner = false;
 
     component.ngOnChanges();

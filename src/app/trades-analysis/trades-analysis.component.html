@@ -1,8 +1,8 @@
 <div>
   <div class="flex-row">
     <app-fetch-symbol></app-fetch-symbol>
-    <app-agg-trades [tradeInfo]="buyerTradeInfo"></app-agg-trades>
-    <app-agg-trades [tradeInfo]="sellerTradeInfo"></app-agg-trades>
+    <app-agg-trades [tradeInfo]="buyerTradeInfo" [title]="'Buyers'"></app-agg-trades>
+    <app-agg-trades [tradeInfo]="sellerTradeInfo" [title]="'Sellers'"></app-agg-trades>
   </div>
   <app-fetch-history [fetch]="currentFetch"></app-fetch-history>
 </div>

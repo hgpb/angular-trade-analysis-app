@@ -25,7 +25,7 @@ export class TradesAnalysisComponent implements OnInit, OnDestroy {
         .subscribe((aggTradeData: AggTradeData) => {
 
           const isBuyerWinning =
-            parseFloat(aggTradeData.buyerQtyByPriceTotal) > parseFloat(aggTradeData.sellerQtyByPriceTotal);
+            parseFloat(aggTradeData.buyerQtyTotal) > parseFloat(aggTradeData.sellerQtyTotal);
 
           const tradeInfo = {
             asset1: aggTradeData.asset1,
@@ -34,27 +34,25 @@ export class TradesAnalysisComponent implements OnInit, OnDestroy {
           };
           this.buyerTradeInfo = {
             ...tradeInfo,
-            title: "Buyers",
             isBuyerWinner: isBuyerWinning,
-            trades: aggTradeData.buyerQtyByPrice,
-            totalQty: aggTradeData.buyerQtyTotalFormatted,
-            totalCost: aggTradeData.buyerCostTotalFormatted
+            trades: aggTradeData.buyerTrades,
+            totalQty: aggTradeData.buyerTotalQtyFormatted,
+            totalCost: aggTradeData.buyerTotalCostFormatted
           };
           this.sellerTradeInfo = {
             ...tradeInfo,
-            title: "Sellers",
             isBuyerWinner: !isBuyerWinning,
-            trades: aggTradeData.sellerQtyByPrice,
-            totalQty: aggTradeData.sellerQtyTotalFormatted,
-            totalCost: aggTradeData.sellerCostTotalFormatted
+            trades: aggTradeData.sellerTrades,
+            totalQty: aggTradeData.sellerTotalQtyFormatted,
+            totalCost: aggTradeData.sellerTotalCostFormatted
           };
           this.currentFetch = {
             ...tradeInfo,
             limit: aggTradeData.limit,
             timeFetched: Date.now(),
             isBuyerWinner: isBuyerWinning,
-            buyerQtyTotalFormatted: aggTradeData.buyerQtyTotalFormatted,
-            sellerQtyTotalFormatted: aggTradeData.sellerQtyTotalFormatted
+            buyerQtyTotalFormatted: aggTradeData.buyerTotalQtyFormatted,
+            sellerQtyTotalFormatted: aggTradeData.sellerTotalQtyFormatted
           };
       });
   }
