@@ -23,16 +23,4 @@ export class QtyGroupedByPriceComponent implements OnChanges {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-
-  getQtyTotal() {
-    return this.qtyTotalGroupedByPrice;
-  }
-
-  getCostTotal() {
-    return this.costTotalFormatted;
-  }
-
-  getCostAsset() {
-    return this.costAsset;
-  }
 }
