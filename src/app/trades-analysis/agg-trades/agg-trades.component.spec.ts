@@ -21,12 +21,50 @@ describe('AggTradesComponent', () => {
     component.tradeInfo = { asset1: "", asset2: "", lookBack: 1, title:"", isBuyerWinner: true, trades: [], totalQty:"", totalCost:"" };
   });
 
+  it('should expect correct title when buyer winning', () => {
+    component.tradeInfo.title = "My Test";
+
+    component.ngOnChanges();
+    fixture.detectChanges();
+
+    expect(component.title).toBe("My Test Winning");
+  });
+
+  it('should expect correct title when seller winning', () => {
+    component.tradeInfo.title = "My Test";
+    component.tradeInfo.isBuyerWinner = false;
+
+    component.ngOnChanges();
+    fixture.detectChanges();
+
+    expect(component.title).toBe("My Test Losing");
+  });
+
+  it('should expect correct symbol', () => {
+    component.tradeInfo.asset1 = "A";
+    component.tradeInfo.asset2 = "B";
+
+    component.ngOnChanges();
+    fixture.detectChanges();
+
+    expect(component.symbol).toBe("A/B");
+  });
+
+  it('should expect 2nd asset in symbol to be set', () => {
+    component.tradeInfo.asset2 = "B";
+
+    component.ngOnChanges();
+    fixture.detectChanges();
+
+    expect(component.costAsset).toBe("B");
+  });
+
   it('should render data with correct headings, in correct order', () => {
     component.tradeInfo.trades = [
-      { price: "123.123", qty: "12", cost: "123", qtyFormatted: "231,231"},
-      { price: "234234", qty: "42342", cost: "234234", qtyFormatted: "234,234,234"} ];
-    component.tradeInfo.totalQty = "123";
-    component.tradeInfo.totalCost = "123456";
+      { price: "1", qty: "1", cost: "1", qtyFormatted: "1"},
+      { price: "1", qty: "1", cost: "1", qtyFormatted: "1"} ];
+    component.tradeInfo.totalQty = "1";
+    component.tradeInfo.totalCost = "1";
     component.tradeInfo.asset2 = "ABC";
 
     component.ngOnChanges();
