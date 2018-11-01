@@ -1,62 +1,66 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { RtlService } from "./rtl.service";
+import { TradeDataService } from "./trade-data.service";
 import { Subscription } from "rxjs/index";
-import { TransformedRTL } from "./rtl.model";
-import { QtyByPrice } from "./qty-by-price/qty-by-price.model";
-import { FetchCollection } from "./fetch-history/fetch-collection.model";
+import { AggTradeData } from "./agg-trade-data.model";
+import { AggTradesInfo } from "./agg-trades/agg-trades-info.model";
+import { FetchHistory } from "./fetch-history/fetch-history.model";
 
 @Component({
-  selector: "app-recent-trade-list",
+  selector: "app-trades-analysis",
   templateUrl: "./trades-analysis.component.html",
   styleUrls: ["./trades-analysis.component.css"]
 })
-export class RecentTradeListComponent implements OnInit, OnDestroy {
+export class TradesAnalysisComponent implements OnInit, OnDestroy {
   rtlDataSubscription: Subscription;
-  lastFetchCollection: FetchCollection;
-  buyerQtyByPriceCollection: QtyByPrice;
-  sellerQtyByPriceCollection: QtyByPrice;
+  currentFetch: FetchHistory;
+  buyerTradeInfo: AggTradesInfo;
+  sellerTradeInfo: AggTradesInfo;
 
-  constructor(private rtlService: RtlService) {}
+  constructor(private rtlService: TradeDataService) {}
 
   ngOnInit() {
-    this.rtlDataSubscription = this.rtlService.getRtlDataFetchedListener()
-      .subscribe((trtlData: TransformedRTL) => {
-        let isBuyerQtyWinner = false;
-        if (parseFloat(trtlData.qtyGroupedByBuyerPriceTotal) >
-            parseFloat(trtlData.qtyGroupedBySellerPriceTotal)) {
-          isBuyerQtyWinner = true;
-        }
-        const qtyByPriceCollection = {
-          asset1: trtlData.asset1,
-          asset2: trtlData.asset2,
-          lookBack: trtlData.dateTo - trtlData.dateFrom
-        };
-        this.buyerQtyByPriceCollection = {
-          ...qtyByPriceCollection,
-          title: "Buyers",
-          isBuyerQtyWinner: isBuyerQtyWinner,
-          qtyGroupedByPrice: trtlData.qtyGroupedByBuyerPrice,
-          qtyGroupedByPriceTotalFormatted: trtlData.buyerQtyTotalFormatted,
-          costTotalFormatted: trtlData.buyerCostTotalFormatted
-        };
-        this.sellerQtyByPriceCollection = {
-          ...qtyByPriceCollection,
-          title: "Sellers",
-          isBuyerQtyWinner: !isBuyerQtyWinner,
-          qtyGroupedByPrice: trtlData.qtyGroupedBySellerPrice,
-          qtyGroupedByPriceTotalFormatted: trtlData.sellerQtyTotalFormatted,
-          costTotalFormatted: trtlData.sellerCostTotalFormatted
-        };
-        this.lastFetchCollection = {
-          ...qtyByPriceCollection,
-          limit: trtlData.limit,
-          timeFetched: Date.now(),
-          isBuyerQtyIsWinner: isBuyerQtyWinner,
-          buyerQtyTotalFormatted: trtlData.buyerQtyTotalFormatted,
-          sellerQtyTotalFormatted: trtlData.sellerQtyTotalFormatted
-        };
+    this.rtlDataSubscription =
+      this.rtlService.getRtlDataFetchedListener()
+        .subscribe((aggTradeData: AggTradeData) => {
+
+          const isBuyerWinning = this.isBuyerWinning(
+            parseFloat(aggTradeData.buyerQtyByPriceTotal), parseFloat(aggTradeData.sellerQtyByPriceTotal));
+
+          const tradeInfo = {
+            asset1: aggTradeData.asset1,
+            asset2: aggTradeData.asset2,
+            lookBack: aggTradeData.dateTo - aggTradeData.dateFrom
+          };
+          this.buyerTradeInfo = {
+            ...tradeInfo,
+            title: "Buyers",
+            isBuyerWinner: isBuyerWinning,
+            trades: aggTradeData.buyerQtyByPrice,
+            totalQty: aggTradeData.buyerQtyTotalFormatted,
+            totalCost: aggTradeData.buyerCostTotalFormatted
+          };
+          this.sellerTradeInfo = {
+            ...tradeInfo,
+            title: "Sellers",
+            isBuyerWinner: !isBuyerWinning,
+            trades: aggTradeData.sellerQtyByPrice,
+            totalQty: aggTradeData.sellerQtyTotalFormatted,
+            totalCost: aggTradeData.sellerCostTotalFormatted
+          };
+          this.currentFetch = {
+            ...tradeInfo,
+            limit: aggTradeData.limit,
+            timeFetched: Date.now(),
+            isBuyerWinner: isBuyerWinning,
+            buyerQtyTotalFormatted: aggTradeData.buyerQtyTotalFormatted,
+            sellerQtyTotalFormatted: aggTradeData.sellerQtyTotalFormatted
+          };
       });
+  }
+
+  isBuyerWinning(qtyBuyer: number, qtySeller: number): boolean {
+    return qtyBuyer > qtySeller;
   }
 
   ngOnDestroy() {

@@ -1,3 +1,15 @@
+mat-card {
+  margin: 1rem;
+}
+
+.buy {
+  color: #3BC340;
+}
+
+.sell {
+  color: #F53739;
+}
+
 mat-paginator {
   margin-top: 1rem;
 }

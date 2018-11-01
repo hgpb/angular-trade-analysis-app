@@ -1,10 +1,10 @@
-export interface FetchCollection {
+export interface FetchHistory {
   asset1: string,
   asset2: string,
   limit: number,
   lookBack: number,
   timeFetched: number,
-  isBuyerQtyIsWinner: boolean,
+  isBuyerWinner: boolean,
   buyerQtyTotalFormatted: string,
   sellerQtyTotalFormatted: string
 }

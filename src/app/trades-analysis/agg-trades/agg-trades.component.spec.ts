@@ -1,41 +1,44 @@
-import { QtyGroupedByPriceComponent } from './qty-grouped-by-price.component';
-import { MatPaginatorModule, MatSortModule, MatTableModule } from "@angular/material";
+import { AggTradesComponent } from './agg-trades.component';
+import { MatCardModule, MatPaginatorModule, MatSortModule, MatTableModule } from "@angular/material";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { QtyGroupedByPrice } from "./qty-grouped-by-price.model";
 
-describe('QtyGroupedByPriceComponent', () => {
-  let component: QtyGroupedByPriceComponent;
-  let fixture: ComponentFixture<QtyGroupedByPriceComponent>;
+import { AggTradesData } from "./agg-trades-data.model";
+import { HoursMinutesSecondsPipe } from "../../hms.pipe";
+
+describe('AggTradesComponent', () => {
+  let component: AggTradesComponent;
+  let fixture: ComponentFixture<AggTradesComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MatPaginatorModule, MatSortModule, MatTableModule, BrowserAnimationsModule],
-      declarations: [ QtyGroupedByPriceComponent ]
+      imports: [MatPaginatorModule, MatSortModule, MatTableModule, BrowserAnimationsModule, MatCardModule],
+      declarations: [ AggTradesComponent, HoursMinutesSecondsPipe]
     });
 
-    fixture = TestBed.createComponent(QtyGroupedByPriceComponent);
+    fixture = TestBed.createComponent(AggTradesComponent);
     component = fixture.componentInstance;
+    component.tradeInfo = { asset1: "", asset2: "", lookBack: 1, title:"", isBuyerWinner: true, trades: [], totalQty:"", totalCost:"" };
   });
 
   it('should render data with correct headings, in correct order', () => {
-    component.qtyGroupedByPriceData = [
+    component.tradeInfo.trades = [
       { price: "123.123", qty: "12", cost: "123", qtyFormatted: "231,231"},
       { price: "234234", qty: "42342", cost: "234234", qtyFormatted: "234,234,234"} ];
-    component.costAsset = "ABC";
-    component.qtyTotalGroupedByPrice = "123";
-    component.costTotalFormatted = "123456";
+    component.tradeInfo.totalQty = "123";
+    component.tradeInfo.totalCost = "123456";
+    component.tradeInfo.asset2 = "ABC";
 
     component.ngOnChanges();
     fixture.detectChanges();
 
     const tableElement = fixture.nativeElement.querySelector('.mat-table');
-    const data: QtyGroupedByPrice[] = fixture.componentInstance.dataSource.data;
+    const data: AggTradesData[] = fixture.componentInstance.dataSource.data;
     expectTableToMatchContent(tableElement, [
       ['Price', 'Quantity', 'Cost (ABC)'],
       [data[0].price, data[0].qtyFormatted, data[0].cost],
       [data[1].price, data[1].qtyFormatted, data[1].cost],
-      ['Total', component.qtyTotalGroupedByPrice, component.costTotalFormatted]
+      ['Total', component.tradeInfo.totalQty, component.tradeInfo.totalCost]
     ]);
   });
 

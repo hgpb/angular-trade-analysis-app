@@ -1,8 +1,8 @@
 <div>
   <div class="flex-row">
     <app-fetch-symbol></app-fetch-symbol>
-    <app-qty-by-price [qtyByPriceCollection]="buyerQtyByPriceCollection"></app-qty-by-price>
-    <app-qty-by-price [qtyByPriceCollection]="sellerQtyByPriceCollection"></app-qty-by-price>
+    <app-agg-trades [tradeInfo]="buyerTradeInfo"></app-agg-trades>
+    <app-agg-trades [tradeInfo]="sellerTradeInfo"></app-agg-trades>
   </div>
-  <app-fetch-history [fetchCollection]="lastFetchCollection"></app-fetch-history>
+  <app-fetch-history [fetch]="currentFetch"></app-fetch-history>
 </div>

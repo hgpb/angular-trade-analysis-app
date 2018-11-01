@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
-import { RtlService } from "../rtl.service";
+import { TradeDataService } from "../trade-data.service";
 import { Subscription } from "rxjs/index";
 import { AssetSymbol } from "../../customInputs/symbol-input/symbol-input.component";
 
@@ -15,7 +15,7 @@ export class FetchSymbolComponent implements OnInit {
   symbol: AssetSymbol;
   limit: string;
 
-  constructor(private rtlService: RtlService) {}
+  constructor(private rtlService: TradeDataService) {}
 
   ngOnInit() {
     this.rtlDataSubscription = this.rtlService.getRtlDataFetchedListener()

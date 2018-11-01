@@ -1,4 +1,4 @@
-export interface QtyGroupedByPrice {
+export interface AggTradesData {
   price: string,
   qty: string,
   cost: string,

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
-import { FetchCollection } from "./fetch-collection.model";
+import { FetchHistory } from "./fetch-history.model";
 
 @Component({
   selector: 'app-fetch-history',
@@ -8,8 +8,8 @@ import { FetchCollection } from "./fetch-collection.model";
 })
 export class FetchHistoryComponent implements OnInit, OnChanges {
 
-  @Input() fetchCollection: FetchCollection;
-  fetchHistory: FetchCollection[];
+  @Input() fetch: FetchHistory;
+  fetchHistory: FetchHistory[];
 
   ngOnInit() {
     this.fetchHistory = JSON.parse(localStorage.getItem("fetchHistory")) || [];
@@ -18,7 +18,7 @@ export class FetchHistoryComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if(!this.fetchHistory) return;
     if (this.fetchHistory.length >= 60) this.fetchHistory.pop();
-    this.fetchHistory.unshift(this.fetchCollection);
+    this.fetchHistory.unshift(this.fetch);
     localStorage.setItem("fetchHistory", JSON.stringify(this.fetchHistory));
   }
 

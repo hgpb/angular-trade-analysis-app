@@ -6,12 +6,11 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
 import { RoutingModule } from "./routing.module";
-import { RecentTradeListComponent } from "./trades-analysis/trades-analysis.component";
+import { TradesAnalysisComponent } from "./trades-analysis/trades-analysis.component";
 import { AngularMaterialModule } from "./angular-material.module";
 import { HeaderComponent } from "./header/header.component";
-import { QtyGroupedByPriceComponent } from './trades-analysis/qty-by-price/qty-grouped-by-price/qty-grouped-by-price.component';
 import { FetchSymbolComponent } from './trades-analysis/fetch-symbol/fetch-symbol.component';
-import { QtyByPriceComponent } from './trades-analysis/qty-by-price/qty-by-price.component';
+import { AggTradesComponent } from './trades-analysis/agg-trades/agg-trades.component';
 import { FetchHistoryComponent } from './trades-analysis/fetch-history/fetch-history.component';
 import { SymbolInputComponent } from './customInputs/symbol-input/symbol-input.component';
 import { ErrorInterceptor } from "./error-interceptor";
@@ -22,10 +21,9 @@ import { HoursMinutesSecondsPipe } from "./hms.pipe";
   declarations: [
     AppComponent,
     HeaderComponent,
-    RecentTradeListComponent,
-    QtyGroupedByPriceComponent,
+    TradesAnalysisComponent,
     FetchSymbolComponent,
-    QtyByPriceComponent,
+    AggTradesComponent,
     FetchHistoryComponent,
     SymbolInputComponent,
     ErrorComponent,

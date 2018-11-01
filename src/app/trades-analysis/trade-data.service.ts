@@ -4,14 +4,14 @@ import { Router } from "@angular/router";
 import { Subject } from 'rxjs';
 
 import { environment } from "../../environments/environment";
-import { TransformedRTL } from "./rtl.model";
+import { AggTradeData } from "./agg-trade-data.model";
 import { AssetSymbol } from "../customInputs/symbol-input/symbol-input.component";
 
 const BACKEND_URL = environment.apiUrl + "/trades";
 
 @Injectable({providedIn: 'root'})
-export class RtlService {
-  private rtlDataFetched = new Subject<TransformedRTL>();
+export class TradeDataService {
+  private rtlDataFetched = new Subject<AggTradeData>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -20,7 +20,7 @@ export class RtlService {
     const limitParam = limit ? `/${limit}` : "";
     const queryParams = `/aggregated/${symbolParam.asset1}/${symbolParam.asset2}${limitParam}`;
     this.http
-      .get<TransformedRTL>(BACKEND_URL + queryParams)
+      .get<AggTradeData>(BACKEND_URL + queryParams)
       .subscribe((transformedRtlData) => {
         this.rtlDataFetched.next(transformedRtlData);
       });
