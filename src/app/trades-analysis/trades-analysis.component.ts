@@ -24,8 +24,8 @@ export class TradesAnalysisComponent implements OnInit, OnDestroy {
       this.rtlService.getRtlDataFetchedListener()
         .subscribe((aggTradeData: AggTradeData) => {
 
-          const isBuyerWinning = this.isBuyerWinning(
-            parseFloat(aggTradeData.buyerQtyByPriceTotal), parseFloat(aggTradeData.sellerQtyByPriceTotal));
+          const isBuyerWinning =
+            parseFloat(aggTradeData.buyerQtyByPriceTotal) > parseFloat(aggTradeData.sellerQtyByPriceTotal);
 
           const tradeInfo = {
             asset1: aggTradeData.asset1,
@@ -57,10 +57,6 @@ export class TradesAnalysisComponent implements OnInit, OnDestroy {
             sellerQtyTotalFormatted: aggTradeData.sellerQtyTotalFormatted
           };
       });
-  }
-
-  isBuyerWinning(qtyBuyer: number, qtySeller: number): boolean {
-    return qtyBuyer > qtySeller;
   }
 
   ngOnDestroy() {
