@@ -19,6 +19,7 @@ export class AggTradesComponent implements OnChanges {
   displayedColumns: string[] = ['price', 'qty', 'cost'];
   dataSource: MatTableDataSource<AggTradesData>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  pageSizeOptions: number[] = [5, 10, 25, 100, 500];
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnChanges() {
