@@ -15,10 +15,11 @@ export class TradeDataService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getRecentTradeList(symbol: AssetSymbol, limit: string) {
+  getRecentTradeList(symbol: AssetSymbol, limit: string, lookback: boolean) {
     const symbolParam = this.sanitiseSymbol({...symbol});
-    const limitParam = limit ? `/${limit}` : "";
-    const queryParams = `/aggregated/${symbolParam.asset1}/${symbolParam.asset2}${limitParam}`;
+    const queryParams = `/aggregated/${symbolParam.asset1}/${symbolParam.asset2}/${lookback}/${limit || ""}`;
+    console.log(BACKEND_URL + queryParams);
+
     this.http
       .get<AggTradeData>(BACKEND_URL + queryParams)
       .subscribe((transformedRtlData) => {

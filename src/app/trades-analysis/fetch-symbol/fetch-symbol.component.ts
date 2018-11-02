@@ -14,6 +14,7 @@ export class FetchSymbolComponent implements OnInit {
   rtlDataSubscription: Subscription;
   symbol: AssetSymbol;
   limit: string;
+  lookback = false;
 
   constructor(private rtlService: TradeDataService) {}
 
@@ -27,7 +28,7 @@ export class FetchSymbolComponent implements OnInit {
   onFetchRecentTradeList(form: NgForm) {
     if (form.invalid) return;
     this.isLoading = true;
-    this.rtlService.getRecentTradeList(form.value.symbol, form.value.limit);
+    this.rtlService.getRecentTradeList(form.value.symbol, form.value.limit, form.value.lookback);
   }
 
   clearSymbol() {

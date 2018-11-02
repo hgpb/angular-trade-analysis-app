@@ -12,6 +12,7 @@ export class AggTradesComponent implements OnChanges {
 
   @Input() tradeInfo: AggTradesInfo;
   @Input() title: string;
+  heading: string;
   symbol: string;
   costAsset: string;
 
@@ -21,11 +22,8 @@ export class AggTradesComponent implements OnChanges {
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnChanges() {
-
-    console.log(this.title);
-
     if (this.tradeInfo) {
-      this.title = `${this.title} ${this.tradeInfo.isBuyerWinner ? "Winning" : "Losing"}`;
+      this.heading = `${this.title} ${this.tradeInfo.isBuyerWinner ? "Winning" : "Losing"}`;
       this.symbol = `${this.tradeInfo.asset1}/${this.tradeInfo.asset2}`;
       this.costAsset = this.tradeInfo.asset2;
       this.dataSource = new MatTableDataSource<AggTradesData>(this.tradeInfo.trades);

@@ -6,24 +6,21 @@ form {
 mat-card {
   margin: 1rem;
 }
-input[name="limit"] {
-  border: none;
-  background: none;
-  padding: 0;
-  outline: none;
-  font: inherit;
-  text-align: left;
-  font-family: "Lucida Console", Monaco, monospace;
-}
 
 .flex-row {
   display: flex;
 }
-.flex-row mat-form-field.symbol {
+.symbol {
   width: 9rem;
 }
-.flex-row mat-form-field.limit {
+.limit {
   width: 7rem;
+}
+.limit input {
+  font-family: "Lucida Console", Monaco, monospace;
+}
+.lookback {
+  margin-top: 1rem;
 }
 
 button[type="submit"] {
