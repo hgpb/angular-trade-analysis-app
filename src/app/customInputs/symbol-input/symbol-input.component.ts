@@ -5,9 +5,7 @@ import { Subject } from "rxjs/index";
 import { FocusMonitor } from "@angular/cdk/a11y";
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
 
-export interface Symbol {
-  asset1: string, asset2: string
-}
+export interface Symbol { asset1: string, asset2: string }
 
 @Component({
   selector: 'symbol-input',
@@ -24,6 +22,7 @@ export class SymbolInputComponent implements MatFormFieldControl<Symbol>, OnDest
   errorState = false;
   controlType = 'symbol-input';
   onChangeCallback;
+  autofocus = false;
 
   @HostBinding() id = `symbol-input-${SymbolInputComponent.nextId++}`;
   @HostBinding('class.floating')

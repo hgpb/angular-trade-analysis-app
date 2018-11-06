@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { TradeDataService } from "../trade-data.service";
 import { Subscription } from "rxjs/index";
-import { Symbol } from "../../customInputs/symbol-input/symbol-input.component";
+import { Symbol, SymbolInputComponent } from "../../customInputs/symbol-input/symbol-input.component";
 import { AggTradeDataParams } from "../agg-trade-data-params.model";
 
 @Component({
@@ -13,9 +13,12 @@ import { AggTradeDataParams } from "../agg-trade-data-params.model";
 export class FetchSymbolComponent implements OnInit, OnDestroy {
   isLoading = false;
   atDataSubscription: Subscription;
-  symbol: Symbol;
-  limit: string;
+  symbol: Symbol = { asset1: "", asset2: "" };
   lookback = "60";
+
+  @ViewChild(SymbolInputComponent) set focus(sic: SymbolInputComponent) {
+    sic.autofocus = true;
+  };
 
   constructor(private tradeService: TradeDataService) {}
 
@@ -38,10 +41,6 @@ export class FetchSymbolComponent implements OnInit, OnDestroy {
 
   clearSymbol() {
     this.symbol = null;
-  }
-
-  clearLimit() {
-    this.limit = "";
   }
 
   ngOnDestroy() {
