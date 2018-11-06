@@ -24,15 +24,15 @@ describe('HoursMinutesSecondsPipe', () => {
   });
 
   it('should return value that uses all parts of the format', () => {
-    expect (pipe.transform(44105000)).toEqual('12h 15m 04s');
+    expect (pipe.transform(44105)).toEqual('12h 15m 04s');
   });
 
   it('should return 24h 00m 00s for highest allowed boundry value', () => {
-    expect (pipe.transform(86400000)).toEqual('24h 00m 00s');
+    expect (pipe.transform(86400)).toEqual('24h 00m 00s');
   });
 
   it('should return > 24h when outside highest allowed boundry value', () => {
-    expect (pipe.transform(86400001)).toEqual('> 24h');
+    expect (pipe.transform(86401)).toEqual('> 24h');
   });
 
 

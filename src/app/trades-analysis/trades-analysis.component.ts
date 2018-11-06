@@ -5,6 +5,9 @@ import { Subscription } from "rxjs/index";
 import { AggTradeData } from "./agg-trade-data.model";
 import { AggTradesInfo } from "./agg-trades/agg-trades-info.model";
 import { FetchHistory } from "./fetch-history/fetch-history.model";
+import { AggTradeDataParams } from "./agg-trade-data-params.model";
+import { AggTradeDataApi } from "./agg-trade-data-api";
+import { atTransform } from "./agg-trade-transform.function";
 
 @Component({
   selector: "app-trades-analysis",
@@ -12,52 +15,51 @@ import { FetchHistory } from "./fetch-history/fetch-history.model";
   styleUrls: ["./trades-analysis.component.css"]
 })
 export class TradesAnalysisComponent implements OnInit, OnDestroy {
-  rtlDataSubscription: Subscription;
+  atDataSubscription: Subscription;
   currentFetch: FetchHistory;
   buyerTradeInfo: AggTradesInfo;
   sellerTradeInfo: AggTradesInfo;
 
-  constructor(private rtlService: TradeDataService) {}
+  constructor(private tradeService: TradeDataService) {}
 
   ngOnInit() {
-    this.rtlDataSubscription =
-      this.rtlService.getRtlDataFetchedListener()
-        .subscribe((aggTradeData: AggTradeData) => {
+    this.atDataSubscription =
+      this.tradeService.getAggTradeDataFetchedListener()
+        .subscribe((aggTradeData: {data: AggTradeDataApi[], params: AggTradeDataParams}) => {
+          const atDataTranformed: AggTradeData = atTransform(aggTradeData.data);
 
           const isBuyerWinning =
-            parseFloat(aggTradeData.buyerQtyTotal) > parseFloat(aggTradeData.sellerQtyTotal);
+            parseFloat(atDataTranformed.buyerQtyTotal) > parseFloat(atDataTranformed.sellerQtyTotal);
 
           const tradeInfo = {
-            asset1: aggTradeData.asset1,
-            asset2: aggTradeData.asset2,
-            lookBack: aggTradeData.dateTo - aggTradeData.dateFrom
+            symbol: aggTradeData.params.symbol,
+            lookBack: atDataTranformed.dateTo - atDataTranformed.dateFrom
           };
           this.buyerTradeInfo = {
             ...tradeInfo,
             isBuyerWinner: isBuyerWinning,
-            trades: aggTradeData.buyerTrades,
-            totalQty: aggTradeData.buyerTotalQtyFormatted,
-            totalCost: aggTradeData.buyerTotalCostFormatted
+            trades: atDataTranformed.buyerTrades,
+            totalQty: atDataTranformed.buyerTotalQtyFormatted,
+            totalCost: atDataTranformed.buyerTotalCostFormatted
           };
           this.sellerTradeInfo = {
             ...tradeInfo,
             isBuyerWinner: !isBuyerWinning,
-            trades: aggTradeData.sellerTrades,
-            totalQty: aggTradeData.sellerTotalQtyFormatted,
-            totalCost: aggTradeData.sellerTotalCostFormatted
+            trades: atDataTranformed.sellerTrades,
+            totalQty: atDataTranformed.sellerTotalQtyFormatted,
+            totalCost: atDataTranformed.sellerTotalCostFormatted
           };
           this.currentFetch = {
             ...tradeInfo,
-            limit: aggTradeData.limit,
             timeFetched: Date.now(),
             isBuyerWinner: isBuyerWinning,
-            buyerQtyTotalFormatted: aggTradeData.buyerTotalQtyFormatted,
-            sellerQtyTotalFormatted: aggTradeData.sellerTotalQtyFormatted
+            buyerQtyTotalFormatted: atDataTranformed.buyerTotalQtyFormatted,
+            sellerQtyTotalFormatted: atDataTranformed.sellerTotalQtyFormatted
           };
       });
   }
 
   ngOnDestroy() {
-    this.rtlDataSubscription.unsubscribe();
+    this.atDataSubscription.unsubscribe();
   }
 }

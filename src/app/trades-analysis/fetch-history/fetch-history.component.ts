@@ -4,7 +4,7 @@ import { FetchHistory } from "./fetch-history.model";
 @Component({
   selector: 'app-fetch-history',
   templateUrl: './fetch-history.component.html',
-  styleUrls: ['./fetch-history.component.css', '../trades-analysis.component.scss']
+  styleUrls: ['./fetch-history.component.css', '../../color-vars.scss']
 })
 export class FetchHistoryComponent implements OnInit, OnChanges {
 

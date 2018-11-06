@@ -16,6 +16,8 @@ import { SymbolInputComponent } from './customInputs/symbol-input/symbol-input.c
 import { ErrorInterceptor } from "./error-interceptor";
 import { ErrorComponent } from "./error/error.component";
 import { HoursMinutesSecondsPipe } from "./hms.pipe";
+import { NgxEchartsModule } from "ngx-echarts";
+import { PriceTimeVolumeChartComponent } from './trades-analysis/price-time-volume-chart/price-time-volume-chart.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { HoursMinutesSecondsPipe } from "./hms.pipe";
     FetchHistoryComponent,
     SymbolInputComponent,
     ErrorComponent,
-    HoursMinutesSecondsPipe
+    HoursMinutesSecondsPipe,
+    PriceTimeVolumeChartComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { HoursMinutesSecondsPipe } from "./hms.pipe";
     HttpClientModule,
     AngularMaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxEchartsModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}

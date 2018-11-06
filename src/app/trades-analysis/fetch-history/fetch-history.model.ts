@@ -1,7 +1,7 @@
+import { Symbol } from "../../customInputs/symbol-input/symbol-input.component";
+
 export interface FetchHistory {
-  asset1: string,
-  asset2: string,
-  limit: number,
+  symbol: Symbol,
   lookBack: number,
   timeFetched: number,
   isBuyerWinner: boolean,

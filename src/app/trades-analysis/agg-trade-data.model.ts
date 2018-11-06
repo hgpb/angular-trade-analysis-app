@@ -10,9 +10,5 @@ export interface AggTradeData {
   sellerTrades: AggTradesData[],
   sellerQtyTotal: string,
   sellerTotalQtyFormatted: string,
-  sellerTotalCostFormatted: string,
-  symbol: string,
-  asset1: string,
-  asset2: string,
-  limit: number
+  sellerTotalCostFormatted: string
 }

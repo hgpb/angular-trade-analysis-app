@@ -5,7 +5,7 @@ import { Subject } from "rxjs/index";
 import { FocusMonitor } from "@angular/cdk/a11y";
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
 
-export interface AssetSymbol {
+export interface Symbol {
   asset1: string, asset2: string
 }
 
@@ -15,7 +15,7 @@ export interface AssetSymbol {
   styleUrls: ['./symbol-input.component.css'],
   providers: [{ provide: MatFormFieldControl, useExisting: SymbolInputComponent}]
 })
-export class SymbolInputComponent implements MatFormFieldControl<AssetSymbol>, OnDestroy {
+export class SymbolInputComponent implements MatFormFieldControl<Symbol>, OnDestroy {
   static nextId = 0;
 
   stateChanges = new Subject<void>();
@@ -42,11 +42,11 @@ export class SymbolInputComponent implements MatFormFieldControl<AssetSymbol>, O
   }
 
   @Input()
-  get value(): AssetSymbol | null {
+  get value(): Symbol | null {
     let n = this.parts.value;
     return { asset1: n.asset1, asset2: n.asset2};
   }
-  set value(symbol: AssetSymbol | null) {
+  set value(symbol: Symbol | null) {
     symbol = symbol || { asset1: "", asset2: ""};
     this.parts.setValue({asset1: symbol.asset1, asset2: symbol.asset2});
     this.stateChanges.next();
@@ -140,7 +140,7 @@ export class SymbolInputComponent implements MatFormFieldControl<AssetSymbol>, O
     }
   }
 
-  writeValue(value: AssetSymbol | null) {
+  writeValue(value: Symbol | null) {
     this.value = value;
   }
 

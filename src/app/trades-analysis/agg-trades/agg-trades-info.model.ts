@@ -1,8 +1,8 @@
+import { Symbol } from "../../customInputs/symbol-input/symbol-input.component";
 import { AggTradesData } from "./agg-trades-data.model";
 
 export interface AggTradesInfo {
-  asset1: string,
-  asset2: string,
+  symbol: Symbol,
   lookBack: number,
   isBuyerWinner: boolean,
   trades: AggTradesData[],

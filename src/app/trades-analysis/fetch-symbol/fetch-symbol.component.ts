@@ -1,34 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { TradeDataService } from "../trade-data.service";
 import { Subscription } from "rxjs/index";
-import { AssetSymbol } from "../../customInputs/symbol-input/symbol-input.component";
+import { Symbol } from "../../customInputs/symbol-input/symbol-input.component";
+import { AggTradeDataParams } from "../agg-trade-data-params.model";
 
 @Component({
   selector: 'app-fetch-symbol',
   templateUrl: './fetch-symbol.component.html',
   styleUrls: ['./fetch-symbol.component.css']
 })
-export class FetchSymbolComponent implements OnInit {
+export class FetchSymbolComponent implements OnInit, OnDestroy {
   isLoading = false;
-  rtlDataSubscription: Subscription;
-  symbol: AssetSymbol;
+  atDataSubscription: Subscription;
+  symbol: Symbol;
   limit: string;
-  lookback = false;
+  lookback = "60";
 
-  constructor(private rtlService: TradeDataService) {}
+  constructor(private tradeService: TradeDataService) {}
 
   ngOnInit() {
-    this.rtlDataSubscription = this.rtlService.getRtlDataFetchedListener()
+    this.atDataSubscription = this.tradeService.getAggTradeDataFetchedListener()
       .subscribe(() => {
         this.isLoading = false;
       });
   }
 
-  onFetchRecentTradeList(form: NgForm) {
+  fetchTrades(form: NgForm) {
     if (form.invalid) return;
     this.isLoading = true;
-    this.rtlService.getRecentTradeList(form.value.symbol, form.value.limit, form.value.lookback);
+    const aggTradeDataParams: AggTradeDataParams = {
+      symbol: form.value.symbol,
+      lookback: form.value.lookback
+    }
+    this.tradeService.getAggTrades(aggTradeDataParams);
   }
 
   clearSymbol() {
@@ -37,5 +42,9 @@ export class FetchSymbolComponent implements OnInit {
 
   clearLimit() {
     this.limit = "";
+  }
+
+  ngOnDestroy() {
+    this.atDataSubscription.unsubscribe();
   }
 }

@@ -3,13 +3,13 @@
   <mat-card-header>
     <mat-card-title
       [class.buy]="tradeInfo && tradeInfo.isBuyerWinner"
-      [class.sell]="tradeInfo && !tradeInfo.isBuyerWinner">
+      [class.accent]="tradeInfo && !tradeInfo.isBuyerWinner">
       {{heading}}
     </mat-card-title>
     <mat-card-subtitle>
       Quantity of
       <span class="primary">{{symbol ? symbol : '[ symbol ]'}}</span>
-      traded within last
+      by price over last
       <span class="primary">{{tradeInfo && tradeInfo.lookBack ? (tradeInfo.lookBack | hms) : '[ period ]'}}</span>.
     </mat-card-subtitle>
   </mat-card-header>
@@ -18,17 +18,27 @@
     <ng-container matColumnDef="price">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
       <td mat-cell *matCellDef="let trade"> {{trade.price}} </td>
-      <td mat-footer-cell *matFooterCellDef> Total </td>
+      <td mat-footer-cell *matFooterCellDef
+          [class.buy]="tradeInfo && tradeInfo.isBuyerWinner"
+          [class.accent]="tradeInfo && !tradeInfo.isBuyerWinner"> Total </td>
     </ng-container>
     <ng-container matColumnDef="qty">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
       <td mat-cell *matCellDef="let trade"> {{ trade.qtyFormatted }} </td>
-      <td mat-footer-cell *matFooterCellDef> {{ tradeInfo ? tradeInfo.totalQty : '' }} </td>
+      <td mat-footer-cell *matFooterCellDef
+          [class.buy]="tradeInfo && tradeInfo.isBuyerWinner"
+          [class.accent]="tradeInfo && !tradeInfo.isBuyerWinner">
+        {{ tradeInfo ? tradeInfo.totalQty : '' }}
+      </td>
     </ng-container>
     <ng-container matColumnDef="cost">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Cost {{costAsset ? '(' + costAsset + ')' : ''}} </th>
       <td mat-cell *matCellDef="let trade"> {{trade.cost}} </td>
-      <td mat-footer-cell *matFooterCellDef> {{ tradeInfo ? tradeInfo.totalCost : ''}} </td>
+      <td mat-footer-cell *matFooterCellDef
+          [class.buy]="tradeInfo && tradeInfo.isBuyerWinner"
+          [class.accent]="tradeInfo && !tradeInfo.isBuyerWinner">
+        {{ tradeInfo ? tradeInfo.totalCost : ''}}
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

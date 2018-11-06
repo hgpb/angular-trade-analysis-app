@@ -3,11 +3,7 @@ mat-card {
 }
 
 .buy {
-  color: #3BC340;
-}
-
-.sell {
-  color: #F53739;
+  color: #0CF49B;
 }
 
 mat-paginator {

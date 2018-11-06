@@ -2,11 +2,19 @@ mat-card {
   margin: 1rem;
 }
 
-mat-card-content {
-  margin: 0.5rem;
-  font-size: 1rem;
+mat-card .mat-card {
+  background-color: #21202D;
+  width: 13.3rem;
 }
-.limit-text {
+
+mat-card .mat-card .mat-card-subtitle,
+mat-card .mat-card .mat-card-content{
+  color: #8392A5;
+}
+
+
+mat-card-content {
+  margin: 0 1rem 0 1rem;
   font-size: 0.8rem;
 }
 

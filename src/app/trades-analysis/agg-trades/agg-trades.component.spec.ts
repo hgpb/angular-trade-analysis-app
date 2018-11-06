@@ -18,43 +18,54 @@ describe('AggTradesComponent', () => {
 
     fixture = TestBed.createComponent(AggTradesComponent);
     component = fixture.componentInstance;
-    component.tradeInfo = { asset1: "", asset2: "", lookBack: 1, isBuyerWinner: true, trades: [], totalQty:"", totalCost:"" };
+    component.tradeInfo = {
+      symbol: { asset1: "", asset2: "" }, lookBack: 1, isBuyerWinner: true, trades: [], totalQty: "", totalCost: ""
+    };
+  });
+
+  it('should expect correct title on initialisation', () => {
+    component.title = "My Test";
+    fixture.detectChanges();
+
+    component.ngOnInit();
+
+    expect(component.heading).toBe("My Test");
   });
 
   it('should expect correct title when buyer winning', () => {
     component.title = "My Test";
-
-    component.ngOnChanges();
     fixture.detectChanges();
 
-    expect(component.title).toBe("My Test Winning");
+    component.ngOnChanges();
+
+    expect(component.heading).toBe("My Test Winning");
   });
 
   it('should expect correct title when seller winning', () => {
     component.title = "My Test";
     component.tradeInfo.isBuyerWinner = false;
-
-    component.ngOnChanges();
     fixture.detectChanges();
 
-    expect(component.title).toBe("My Test Losing");
+    component.ngOnChanges();
+
+    expect(component.heading).toBe("My Test Losing");
   });
 
   it('should expect correct symbol', () => {
-    component.tradeInfo.asset1 = "A";
-    component.tradeInfo.asset2 = "B";
+    component.tradeInfo.symbol.asset1 = "A";
+    component.tradeInfo.symbol.asset2 = "B";
+    fixture.detectChanges();
 
     component.ngOnChanges();
-    fixture.detectChanges();
 
     expect(component.symbol).toBe("A/B");
   });
 
   it('should expect 2nd asset in symbol to be set', () => {
-    component.tradeInfo.asset2 = "B";
+    component.tradeInfo.symbol.asset2 = "B";
+    fixture.detectChanges();
 
     component.ngOnChanges();
-    fixture.detectChanges();
 
     expect(component.costAsset).toBe("B");
   });
@@ -65,11 +76,12 @@ describe('AggTradesComponent', () => {
       { price: "1", qty: "1", cost: "1", qtyFormatted: "1"} ];
     component.tradeInfo.totalQty = "1";
     component.tradeInfo.totalCost = "1";
-    component.tradeInfo.asset2 = "ABC";
-
-    component.ngOnChanges();
+    component.tradeInfo.symbol.asset2 = "ABC";
     fixture.detectChanges();
 
+    component.ngOnChanges();
+
+    fixture.detectChanges();
     const tableElement = fixture.nativeElement.querySelector('.mat-table');
     const data: AggTradesData[] = fixture.componentInstance.dataSource.data;
     expectTableToMatchContent(tableElement, [

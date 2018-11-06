@@ -1,46 +1,33 @@
-<mat-card>
-  <form (submit)="onFetchRecentTradeList(fetchForm)" #fetchForm="ngForm">
-    <div class="flex-row">
+  <form (submit)="fetchTrades(fetchForm)" #fetchForm="ngForm">
 
-      <mat-form-field class="symbol">
-        <symbol-input
-          name="symbol"
-          placeholder="Symbol"
-          ngModel
-          #symbolInput="ngModel"
-          [(ngModel)]="symbol"></symbol-input>
-        <button
-          mat-button matSuffix mat-icon-button
-          *ngIf="symbol && (symbol.asset1 || symbol.asset2)"
-          aria-label="Clear"
-          (click)="clearSymbol()">
-          <mat-icon>close</mat-icon>
-        </button>
-        <mat-hint>BTC/USDT</mat-hint>
-        <mat-error *ngIf="symbolInput.invalid">Symbol is required</mat-error>
-      </mat-form-field>
+    <mat-form-field class="symbol">
+      <symbol-input
+        name="symbol"
+        placeholder="Symbol"
+        ngModel
+        #symbolInput="ngModel"
+        [(ngModel)]="symbol"></symbol-input>
+      <button
+        mat-button matSuffix mat-icon-button
+        *ngIf="symbol && (symbol.asset1 || symbol.asset2)"
+        aria-label="Clear"
+        (click)="clearSymbol()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-hint>BTC/USDT</mat-hint>
+      <mat-error *ngIf="symbolInput.invalid">Symbol is required</mat-error>
+    </mat-form-field>
 
-      <mat-form-field class="limit">
-        <input
-          matInput
-          name="limit"
-          type="text"
-          placeholder="Limit"
-          [(ngModel)]="limit">
-        <button
-          mat-button matSuffix mat-icon-button
-          *ngIf="limit"
-          aria-label="Clear"
-          (click)="clearLimit()">
-          <mat-icon>close</mat-icon>
-        </button>
-        <mat-hint>Default/Max: 1000</mat-hint>
-      </mat-form-field>
+    <mat-form-field class="lookback">
+      <mat-select name="lookback" placeholder="Look back" [(ngModel)]="lookback" required>
+        <mat-option value="5">5 min</mat-option>
+        <mat-option value="10">10 min</mat-option>
+        <mat-option value="20">20 min</mat-option>
+        <mat-option value="30">30 min</mat-option>
+        <mat-option value="45">45 min</mat-option>
+        <mat-option value="60">1 hour</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-    </div>
-
-    <mat-checkbox class="lookback mat-small" name="lookback" [(ngModel)]="lookback" color="primary">Look back up to 1 hour</mat-checkbox>
-
-    <button mat-raised-button color="primary" type="submit">Fetch</button>
+    <button mat-raised-button color="accent" type="submit">Fetch</button>
   </form>
-</mat-card>
