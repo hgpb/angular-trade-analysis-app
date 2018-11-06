@@ -1,0 +1,10 @@
+mat-card {
+  margin: 1rem;
+  padding: 1rem;
+  background-color: #21202D;
+}
+
+.chart {
+  height: 800px;
+  width: 100%;
+}
