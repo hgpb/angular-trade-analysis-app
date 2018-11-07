@@ -17,12 +17,13 @@ export class TradeDataService {
   constructor(private http: HttpClient, private router: Router) {}
 
   getAggTrades({...params}: AggTradeDataParams) {
-    const symbolParam: Symbol = this.transformSymbol(params.symbol);
+    const symbolParam: Symbol = this.transformSymbol({...params.symbol});
     const limitParam = 1000;
     const queryParams = `/aggregated/${symbolParam.asset1}/${symbolParam.asset2}/${params.lookback}/${limitParam}`;
     this.http
       .get<AggTradeDataApi[]>(BACKEND_URL + queryParams)
       .subscribe((atData: AggTradeDataApi[]) => {
+        params.symbol = symbolParam;
         this.atDataFetched.next({ data: atData, params: params });
       });
   }

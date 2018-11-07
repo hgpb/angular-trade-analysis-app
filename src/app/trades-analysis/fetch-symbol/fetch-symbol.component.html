@@ -29,5 +29,7 @@
       </mat-select>
     </mat-form-field>
 
-    <button mat-raised-button color="accent" type="submit">Fetch</button>
+    <button mat-raised-button color="accent" type="submit" *ngIf="buttonSubmitToggle">Fetch</button>
+    <button mat-raised-button color="accent" *ngIf="!buttonSubmitToggle" (click)="stopPolling()">Stop</button>
+    <mat-spinner color="accent" [diameter]="25" *ngIf="!buttonSubmitToggle"></mat-spinner>
   </form>

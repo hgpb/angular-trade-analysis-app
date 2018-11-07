@@ -11,6 +11,12 @@ form {
 .mat-raised-button {
   height: 2.4rem;
   margin: auto;
+  width: 2rem;
+}
+
+mat-spinner {
+  margin: auto 1rem;;
+  color: white;
 }
 
 .lookback,
@@ -19,7 +25,6 @@ form {
   display: flex;
   margin-right:4rem;
 }
-
 
 
 
