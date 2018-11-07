@@ -31,4 +31,20 @@ export class FetchHistoryComponent implements OnInit, OnChanges {
     return (100 * ((num1 - num2) / ((num1 + num2) / 2))).toFixed(2);
   }
 
+  isSymbolEqual(symbol1:Symbol, symbol2:Symbol): boolean {
+    return JSON.stringify(symbol1) === JSON.stringify(symbol2);
+  }
+
+  isQtyEqual(qty1: number, qty2: number): boolean {
+    return qty1 === qty2
+  }
+
+  isQtyGreaterThan(qty1: number, qty2: number): boolean {
+    return qty1 > qty2;
+  }
+
+  isQtyLessThan(qty1: number, qty2: number): boolean {
+    return qty1 < qty2;
+  }
+
 }
