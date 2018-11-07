@@ -1,32 +1,44 @@
+mat-divider {
+  height: 1rem;
+}
+
 mat-card {
+  background-color: #21202D;
+  width: 14rem;
   margin: 1rem;
 }
-
-mat-card .mat-card {
-  background-color: #21202D;
-  width: 13.3rem;
+mat-card-title {
+  color: #21202D;
 }
-
-mat-card .mat-card .mat-card-subtitle,
-mat-card .mat-card .mat-card-content{
+mat-card mat-card-subtitle,
+mat-card mat-card-content{
   color: #8392A5;
 }
-
-
-mat-card-content {
+mat-card mat-card-content {
   margin: 0 1rem 0 1rem;
   font-size: 0.8rem;
+  display: flex;
+  flex-direction:column
+}
+
+h4 {
+  margin-bottom: 0;
+  margin-top: 0;
 }
 
 .flex-row {
   display: flex;
   flex-flow: row wrap;
 }
-
 .buy {
   color: #3BC340;
 }
-
 .sell {
   color: #F53739;
+}
+.nochange {
+  color: #8392A5;
+}
+.volume-container {
+  display:flex;
 }

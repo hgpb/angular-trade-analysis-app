@@ -1,28 +1,49 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Fetch History</mat-card-title>
-    <mat-card-subtitle></mat-card-subtitle>
-  </mat-card-header>
-  <div class="flex-row" *ngIf="fetchHistory && fetchHistory.length > 0">
-    <mat-card *ngFor="let fetch of fetchHistory">
-      <mat-card-header>
-        <mat-card-title>
-          <span [ngClass]="fetch.isBuyerWinner ? 'buy' : 'accent'">{{fetch.symbol.asset1+'/'+fetch.symbol.asset2}}</span>
-        </mat-card-title>
-        <mat-card-subtitle matTooltip="Time fetched">
-          {{fetch.timeFetched | date:'medium'}}
-        </mat-card-subtitle>
-        <mat-card-subtitle matTooltip="Actual look back">
-          {{fetch.lookBack | hms}}
-        </mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        Bought: {{fetch.buyerQtyTotalFormatted}}<br>
-        Sold: {{fetch.sellerQtyTotalFormatted}}
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <mat-card-content *ngIf="!fetchHistory || fetchHistory.length <= 0">
-    No fetch history found!
-  </mat-card-content>
-</mat-card>
+<mat-divider></mat-divider>
+<mat-card-header>
+  <mat-card-title>Fetch History</mat-card-title>
+  <mat-card-subtitle></mat-card-subtitle>
+</mat-card-header>
+<div class="flex-row" *ngIf="fetchHistory && fetchHistory.length > 0">
+  <mat-card *ngFor="let fetch of fetchHistory; let i = index" [attr.data-index]="i">
+    <mat-card-header>
+      <mat-card-title>
+        <span [ngClass]="fetch.isBuyerWinner ? 'buy' : 'accent'">{{fetch.symbol.asset1+'/'+fetch.symbol.asset2}}</span>
+      </mat-card-title>
+      <mat-card-subtitle matTooltip="Time fetched">
+        {{fetch.timeFetched | date:'medium'}}
+      </mat-card-subtitle>
+      <mat-card-subtitle matTooltip="Actual look back">
+        {{fetch.lookBack | hms}}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <h4>Volume</h4>
+      <div class="volume-container">
+        <span matTooltip="Bought">{{fetch.buyerQtyTotalFormatted}}</span>&nbsp;
+        <div *ngIf="fetchHistory[i+1]">
+          <span class="buy" *ngIf="fetch.buyerQtyTotalFormatted == fetchHistory[i+1].buyerQtyTotalFormatted"
+                matTooltip="No change in buy vol"> &#9644; </span>
+          <span class="buy" *ngIf="fetch.buyerQtyTotalFormatted > fetchHistory[i+1].buyerQtyTotalFormatted"
+                matTooltip="Buy vol increased"> &#9650; </span>
+          <span class="accent" *ngIf="fetch.buyerQtyTotalFormatted < fetchHistory[i+1].buyerQtyTotalFormatted"
+                matTooltip="Buy vol decreased"> &#9660; </span>
+        </div>
+      </div>
+      <div class="volume-container">
+        <span matTooltip="Sold">{{fetch.sellerQtyTotalFormatted}}</span>&nbsp;
+        <div *ngIf="fetchHistory[i+1]">
+          <span class="accent" *ngIf="fetch.sellerQtyTotalFormatted == fetchHistory[i+1].sellerQtyTotalFormatted"
+                matTooltip="No change in sell vol"> &#9644; </span>
+          <span class="buy" *ngIf="fetch.sellerQtyTotalFormatted > fetchHistory[i+1].sellerQtyTotalFormatted"
+                matTooltip="Sell vol increased"> &#9650; </span>
+          <span class="accent" *ngIf="fetch.sellerQtyTotalFormatted < fetchHistory[i+1].sellerQtyTotalFormatted"
+                matTooltip="Sell vol decreased"> &#9660; </span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<mat-card-content *ngIf="!fetchHistory || fetchHistory.length <= 0">
+  No fetch history found!
+</mat-card-content>
+
