@@ -27,4 +27,8 @@ export class FetchHistoryComponent implements OnInit, OnChanges {
     localStorage.setItem("fetchHistory", JSON.stringify(this.fetchHistory));
   }
 
+  percentageChange(num1: number, num2: number): string {
+    return (100 * ((num1 - num2) / ((num1 + num2) / 2))).toFixed(2);
+  }
+
 }
