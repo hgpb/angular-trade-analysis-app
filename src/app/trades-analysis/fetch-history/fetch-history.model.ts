@@ -5,6 +5,8 @@ export interface FetchHistory {
   lookBack: number,
   timeFetched: number,
   isBuyerWinner: boolean,
+  buyerQtyTotal: number,
+  sellerQtyTotal: number,
   buyerQtyTotalFormatted: string,
   sellerQtyTotalFormatted: string
 }

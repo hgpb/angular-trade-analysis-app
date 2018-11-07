@@ -5,10 +5,10 @@ export interface AggTradeData {
   dateTo: number,
   buyerTrades: AggTradesData[],
   buyerQtyTotal: string,
-  buyerTotalQtyFormatted: string,
-  buyerTotalCostFormatted: string,
+  buyerQtyTotalFormatted: string,
+  buyerCostTotalFormatted: string,
   sellerTrades: AggTradesData[],
   sellerQtyTotal: string,
-  sellerTotalQtyFormatted: string,
-  sellerTotalCostFormatted: string
+  sellerQtyTotalFormatted: string,
+  sellerCostTotalFormatted: string
 }

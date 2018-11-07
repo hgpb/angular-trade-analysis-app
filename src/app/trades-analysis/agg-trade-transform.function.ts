@@ -68,11 +68,11 @@ export function atTransform(data: AggTradeDataApi[]) {
     dateTo: transformation.dateTo,
     buyerTrades: formatQtyGroupedByPrice(transformation.qtyGroupedByBuyerPrice),
     buyerQtyTotal: Number.parseFloat(transformation.qtyGroupedByBuyerPriceTotal).toFixed(8),
-    buyerTotalQtyFormatted: numberWithCommas(parseFloat(transformation.qtyGroupedByBuyerPriceTotal).toFixed(8)),
-    buyerTotalCostFormatted: numberWithCommas(parseFloat(transformation.buyerCostTotal).toFixed(8)),
+    buyerQtyTotalFormatted: numberWithCommas(parseFloat(transformation.qtyGroupedByBuyerPriceTotal).toFixed(8)),
+    buyerCostTotalFormatted: numberWithCommas(parseFloat(transformation.buyerCostTotal).toFixed(8)),
     sellerTrades: formatQtyGroupedByPrice(transformation.qtyGroupedBySellerPrice),
     sellerQtyTotal: Number.parseFloat(transformation.qtyGroupedBySellerPriceTotal).toFixed(8),
-    sellerTotalQtyFormatted: numberWithCommas(parseFloat(transformation.qtyGroupedBySellerPriceTotal).toFixed(8)),
-    sellerTotalCostFormatted: numberWithCommas(parseFloat(transformation.sellerCostTotal).toFixed(8))
+    sellerQtyTotalFormatted: numberWithCommas(parseFloat(transformation.qtyGroupedBySellerPriceTotal).toFixed(8)),
+    sellerCostTotalFormatted: numberWithCommas(parseFloat(transformation.sellerCostTotal).toFixed(8))
   }
 }

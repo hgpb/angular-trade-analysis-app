@@ -39,22 +39,24 @@ export class TradesAnalysisComponent implements OnInit, OnDestroy {
             ...tradeInfo,
             isBuyerWinner: isBuyerWinning,
             trades: atDataTranformed.buyerTrades,
-            totalQty: atDataTranformed.buyerTotalQtyFormatted,
-            totalCost: atDataTranformed.buyerTotalCostFormatted
+            totalQty: atDataTranformed.buyerQtyTotalFormatted,
+            totalCost: atDataTranformed.buyerCostTotalFormatted
           };
           this.sellerTradeInfo = {
             ...tradeInfo,
             isBuyerWinner: !isBuyerWinning,
             trades: atDataTranformed.sellerTrades,
-            totalQty: atDataTranformed.sellerTotalQtyFormatted,
-            totalCost: atDataTranformed.sellerTotalCostFormatted
+            totalQty: atDataTranformed.sellerQtyTotalFormatted,
+            totalCost: atDataTranformed.sellerCostTotalFormatted
           };
           this.currentFetch = {
             ...tradeInfo,
             timeFetched: Date.now(),
             isBuyerWinner: isBuyerWinning,
-            buyerQtyTotalFormatted: atDataTranformed.buyerTotalQtyFormatted,
-            sellerQtyTotalFormatted: atDataTranformed.sellerTotalQtyFormatted
+            buyerQtyTotalFormatted: atDataTranformed.buyerQtyTotalFormatted,
+            sellerQtyTotalFormatted: atDataTranformed.sellerQtyTotalFormatted,
+            buyerQtyTotal: parseFloat(atDataTranformed.buyerQtyTotal),
+            sellerQtyTotal: parseFloat(atDataTranformed.sellerQtyTotal)
           };
       });
   }
