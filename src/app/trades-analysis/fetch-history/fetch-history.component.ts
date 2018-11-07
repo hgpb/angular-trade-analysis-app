@@ -10,6 +10,11 @@ export class FetchHistoryComponent implements OnInit, OnChanges {
 
   @Input() fetch: FetchHistory;
   fetchHistory: FetchHistory[];
+  JSON: JSON;
+
+  public constructor() {
+    this.JSON = JSON;
+  }
 
   ngOnInit() {
     this.fetchHistory = JSON.parse(localStorage.getItem("fetchHistory")) || [];

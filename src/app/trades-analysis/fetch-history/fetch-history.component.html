@@ -18,9 +18,8 @@
       <mat-card-content>
         <h4 matTooltip="Buy/Sell">Volume</h4>
         <div class="volume-container">
-          <!-- 100 * (fetch.buyerQtyTotal - fetchHistory[i+1].buyerQtyTotal) / ((fetch.buyerQtyTotal + fetchHistory[i+1].buyerQtyTotal) / 2) -->
           <span>{{fetch.buyerQtyTotalFormatted}}</span>&nbsp;
-          <div *ngIf="fetchHistory[i+1]">
+          <div *ngIf="fetchHistory[i+1] && JSON.stringify(fetchHistory[i+1].symbol) === JSON.stringify(fetch.symbol)">
             <span class="buy" *ngIf="fetch.buyerQtyTotal === fetchHistory[i+1].buyerQtyTotal"
                   matTooltip="No change in buy vol"> &#9644; </span>
             <span class="buy" *ngIf="fetch.buyerQtyTotal > fetchHistory[i+1].buyerQtyTotal"
@@ -31,7 +30,7 @@
         </div>
         <div class="volume-container">
           <span>{{fetch.sellerQtyTotalFormatted}}</span>&nbsp;
-          <div *ngIf="fetchHistory[i+1]">
+          <div *ngIf="fetchHistory[i+1] && JSON.stringify(fetchHistory[i+1].symbol) === JSON.stringify(fetch.symbol)">
             <span class="accent" *ngIf="fetch.sellerQtyTotal == fetchHistory[i+1].sellerQtyTotal"
                   matTooltip="No change in sell vol"> &#9644; </span>
             <span class="buy" *ngIf="fetch.sellerQtyTotal > fetchHistory[i+1].sellerQtyTotal"
