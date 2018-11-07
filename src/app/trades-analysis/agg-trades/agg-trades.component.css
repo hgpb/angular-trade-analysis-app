@@ -21,3 +21,7 @@ th.mat-sort-header-sorted {
 tr.mat-footer-row {
   font-weight: bold;
 }
+
+.text-dark {
+  color: #21202D;
+}
