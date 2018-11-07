@@ -17,6 +17,7 @@ export class PriceTimeVolumeChartComponent implements OnInit {
 
   atDataSubscription: Subscription;
   chartOption: EChartOption;
+  mergeData: any;
   loading = false;
   private datePipe = new DatePipe('en-UK');
   private hmsPipe = new HoursMinutesSecondsPipe();
@@ -87,9 +88,8 @@ export class PriceTimeVolumeChartComponent implements OnInit {
         const symbol = `${aggTradeData.params.symbol.asset1}/${aggTradeData.params.symbol.asset2}`;
         const lookback = aggData.dateTo - aggData.dateFrom;
 
-        this.chartOption = {
-          backgroundColor: '#21202D',
-          title : {
+        this.mergeData = {
+          title: {
             text: `${symbol}`,
             subtext: `${this.hmsPipe.transform(lookback)}`,
             x: 'center',
@@ -97,40 +97,95 @@ export class PriceTimeVolumeChartComponent implements OnInit {
               color: '#8392A5'
             }
           },
-          grid: {
-            bottom: 100,
-            left: 200,
-            right: 200,
+          xAxis: {
+            type: 'category',
+            data: time,
+            axisLine: {lineStyle: {color: '#8392A5'}}
           },
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              animation: false,
-              type: 'cross',
-              lineStyle: {
-                color: '#505566',
-                width: 1,
-                opacity: 1
+          yAxis: [{
+            name: `Volume`,
+            type: 'value',
+            axisLabel: {
+              formatter: function (value) {
+                return `${parseFloat(value).toFixed(8)} ${aggTradeData.params.symbol.asset1}`
               }
             },
-            backgroundColor: 'rgba(80, 85, 102, 0.7)'
-          },
-          toolbox: {
-            feature: {
-              restore: {
-                title: "Restore"
-              },
-              saveAsImage: {
-                name: 'price-time-volume-chart',
-                title: "Save as image"
+            splitLine: {show: false},
+            axisLine: {lineStyle: {color: '#8392A5'}}
+          }, {
+            name: `Price`,
+            type: 'value',
+            min: aggData.priceMin - (aggData.priceMax - aggData.priceMin), // add some range to the bottom
+            axisLabel: {
+              formatter: function (value) {
+                return `${parseFloat(value).toFixed(8)} ${aggTradeData.params.symbol.asset1}`
               }
-            }
-          },
-          dataZoom: [{
+            },
+            splitLine: {show: false},
+            axisLine: {lineStyle: {color: '#8392A5'}}
+          }],
+          series: [{
+            name: 'Buyer Volume',
+            data: buyerVol,
+            type: 'bar',
+            color: '#0CF49B'
+          }, {
+            name: 'Seller Volume',
+            data: sellerVol,
+            type: 'bar',
+            color: '#FD1050'
+          }, {
+            name: 'Buyer Price',
+            type: 'line',
+            yAxisIndex: 1,
+            data: buyerPrice,
+            color: '#0CF49B'
+          }, {
+            name: 'Seller Price',
+            type: 'line',
+            yAxisIndex: 1,
+            data: sellerPrice,
+            color: '#FD1050'
+          }]
+        }
+
+        if (!this.chartOption) {
+          this.chartOption = {
+            backgroundColor: '#21202D',
+            grid: {
+              bottom: 100,
+              left: 200,
+              right: 200,
+            },
+            tooltip: {
+              trigger: 'axis',
+              axisPointer: {
+                animation: false,
+                type: 'cross',
+                lineStyle: {
+                  color: '#505566',
+                  width: 1,
+                  opacity: 1
+                }
+              },
+              backgroundColor: 'rgba(80, 85, 102, 0.7)'
+            },
+            toolbox: {
+              feature: {
+                restore: {
+                  title: "Restore"
+                },
+                saveAsImage: {
+                  name: 'price-time-volume-chart',
+                  title: "Save as image"
+                }
+              }
+            },
+            dataZoom: [{
               type: 'slider',
               bottom: 35,
               xAxisIndex: 0,
-              start: 80,
+              start: 50,
               end: 100,
               borderColor: '#505566',
               dataBackground: {
@@ -145,7 +200,7 @@ export class PriceTimeVolumeChartComponent implements OnInit {
               textStyle: {
                 color: '#8392A5'
               }
-            },{
+            }, {
               type: 'slider',
               yAxisIndex: 0,
               top: 55,
@@ -163,7 +218,7 @@ export class PriceTimeVolumeChartComponent implements OnInit {
               textStyle: {
                 color: '#8392A5'
               }
-            },{
+            }, {
               type: 'slider',
               yAxisIndex: 1,
               top: 55,
@@ -180,70 +235,22 @@ export class PriceTimeVolumeChartComponent implements OnInit {
               textStyle: {
                 color: '#8392A5'
               }
-            },{
+            }, {
               type: 'inside',
               start: 30,
               end: 100
             }
-          ],
-          legend: {
-            data:['Buyer Volume','Seller Volume','Buyer Price','Seller Price'],
-            x: 'center',
-            bottom: 0,
-            textStyle: {
-              color: '#8392A5'
+            ],
+            legend: {
+              data: ['Buyer Volume', 'Seller Volume', 'Buyer Price', 'Seller Price'],
+              x: 'center',
+              bottom: 0,
+              textStyle: {
+                color: '#8392A5'
+              }
             }
-          },
-          xAxis: {
-            type: 'category',
-            data: time,
-            axisLine: { lineStyle: { color: '#8392A5' } }
-          },
-          yAxis: [{
-            name: `Volume`,
-            type: 'value',
-            axisLabel: {
-              formatter: function(value) {
-                return `${parseFloat(value).toFixed(8)} ${aggTradeData.params.symbol.asset1}`
-              }
-            },
-            splitLine: { show: false },
-            axisLine: { lineStyle: { color: '#8392A5' } }
-          },{
-            name: `Price`,
-            type: 'value',
-            min: aggData.priceMin - (aggData.priceMax-aggData.priceMin), // add some range to the bottom
-            axisLabel: {
-              formatter: function(value) {
-                return `${parseFloat(value).toFixed(8)} ${aggTradeData.params.symbol.asset1}`
-              }
-            },
-            splitLine: { show: false },
-            axisLine: { lineStyle: { color: '#8392A5' } }
-          }],
-          series: [{
-            name: 'Buyer Volume',
-            data: buyerVol,
-            type: 'bar',
-            color: '#0CF49B'
-          },{
-            name: 'Seller Volume',
-            data: sellerVol,
-            type: 'bar',
-            color: '#FD1050'
-          },{
-            name:'Buyer Price',
-            type:'line',
-            yAxisIndex: 1,
-            data: buyerPrice,
-            color: '#0CF49B'
-          },{
-            name:'Seller Price',
-            type:'line',
-            yAxisIndex: 1,
-            data: sellerPrice,
-            color: '#FD1050'
-          }]
+          }
+          this.chartOption = Object.assign(this.chartOption, this.mergeData);
         }
       });
   }
