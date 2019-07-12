@@ -20,7 +20,7 @@ export class FetchSymbolComponent implements OnInit, OnDestroy {
   pollTimer: any;
   buttonSubmitToggle = true;
 
-  @ViewChild(SymbolInputComponent) set focus(sic: SymbolInputComponent) {
+  @ViewChild(SymbolInputComponent, { static: true }) set focus(sic: SymbolInputComponent) {
     sic.autofocus = true;
   };
 

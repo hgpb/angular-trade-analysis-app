@@ -18,9 +18,9 @@ export class AggTradesComponent implements OnInit, OnChanges {
 
   displayedColumns: string[] = ['price', 'qty', 'cost'];
   dataSource: MatTableDataSource<AggTradesData>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   pageSizeOptions: number[] = [5, 10, 25, 50, 100, 500];
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   ngOnInit() {
     this.heading = this.title;
